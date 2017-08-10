@@ -16,8 +16,9 @@ public class Pazzel {
     }
 
     private boolean add(int x, int y, char c) {
-        if (arr[y][x] != 0 || arr[y][x] != c ) return false;
+        if (arr[y][x] != filler || arr[y][x] == c ) return false;
         arr[y][x] = c;
+        return true;
     }
 
     public String toString() {
@@ -31,13 +32,28 @@ public class Pazzel {
         return str;
     }
     public boolean addWord(int x, int y,String str,boolean landScape) {
+        int length = str.length();
         int x0 = x;
         int y0 = y;
-        if (((landScape ? y0 : x0) + str.length()) > (landScape ?  height : width)) return false;
+        int x1 = landScape ? x0 : x0 + length;
+        int y1 = landScape ? y0 + length : y0;
+        if (x1 > width || y1 > height) return false;
+
+        validateLocation(x0,y0,x1,y1,str);
+
         for (int i = 0 ; i < str.length() ; i++) {
-            x = landScape ? x0+i/width : x0+i%width;
-            y = landScape ? y0+i%height : y0+i/height;
+            x = landScape ? x0 : x0 + i ;
+            y = landScape ? y0 + i : y0;
             add(x,y,str.charAt(i));
+        }
+        return true;
+    }
+
+    public boolean validateLocation(int x0,int y0,int x1,int y1,String str) {
+        for (int i = y0 ; i < y1 ; i++) {
+         for (int j = x0; i < x1 ; j++) {
+
+         }
         }
         return true;
     }
